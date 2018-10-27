@@ -115,6 +115,6 @@ app.post("/register", function (req, res) {
 */
 
 
-//app.listen(80).on('error', function(err) { console.log("err")});
+app.listen(80).on('error', function(err) { console.log("err")});
 
-//console.error("--------", new Date(), "--------");
+console.error("--------", new Date(), "--------");
