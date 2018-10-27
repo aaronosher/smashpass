@@ -91,6 +91,7 @@ function trainCallback(err,stdout,stderr){
 
 app.get("/", function (req, res) {
   var body = req.body;
+  console.log(body);
   res.send("hello");
 });
 app.post("/register", function (req, res) {
@@ -101,6 +102,7 @@ app.post("/register", function (req, res) {
 
 app.post("/login", function (req, res) {
   var body = req.body; //uid+smash
+  console.log(body);
   ///
   //data={isApproved:false,conficence:(sonefloat)}
   res.send(body);
