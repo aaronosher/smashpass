@@ -21,10 +21,19 @@ app.get("/", function (req, res) {
   res.send("hello");
 });
 
-app.get("/login", function (req, res) {
-  var body = req.body;
+app.post("/login", function (req, res) {
+  var body = req.body; //uid+smash
+  ///
+  data={isApproved:false,conficence:/*(sonefloat)*/}
   res.send(body);
 });
+app.post("/register", function (req, res) {
+  var body = req.body; //all smashes + uid
+  ///
+  // toSend in post callback data={registerSucess:false ,uid: ,errMsg:}
+  res.send(body);
+});
+
 
 
 
