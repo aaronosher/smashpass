@@ -173,7 +173,7 @@ def word_to_onehot(s):
         "p": 15, "q": 16, "r": 17, "s": 18, "t": 19,
         "u": 20, "v": 21, "w": 22, "x": 23, "y": 24, "z":25
     }
-    ret = np.zeros(25*len(s))
+    ret = np.zeros(26*len(s))
     i = 0
     for c in s:
         if c in letters: ret[i+letters[c]] = 1
@@ -271,3 +271,4 @@ try:
     __main__()
 except KeyboardInterrupt:
     pass
+
