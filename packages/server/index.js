@@ -96,6 +96,9 @@ app.get("/", function (req, res) {
 app.post("/register", function (req, res) {
   var body = req.body;
   console.log(body);
+  var smashLog = body.smashes;
+  var uid = body.uid;
+  console.log(uid+ " smashes\n "+smashes)
   res.send("hello "+ body);
 });
 
