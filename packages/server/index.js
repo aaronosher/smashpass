@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 console.log(__dirname);
 
 app.get("/", function (req, res) {
-  app.send("hello");
+  res.send("hello");
 });
 
 
