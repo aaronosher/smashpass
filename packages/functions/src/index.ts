@@ -1,8 +1,10 @@
-import * as functions from 'firebase-functions';
+import { https } from 'firebase-functions';
+import { initializeApp } from 'firebase-admin';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+initializeApp();
+
+import LoginFunction from './login';
+import RegisterFunction from './register';
+
+export const login = https.onRequest(LoginFunction);
+export const register = https.onRequest(RegisterFunction);
