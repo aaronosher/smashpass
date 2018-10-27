@@ -83,7 +83,7 @@ function trainCallback(err,stdout,stderr){
 }
 ///////////////////////////////////////
 
-runNN("python3 packages/ml/classifier.smash.py train-fresh","userData/testW.json","userData/smashSample.txt","0.3","1000"," 10",trainCallback);
+//runNN("python3 packages/ml/classifier.smash.py train-fresh","userData/testW.json","userData/smashSample.txt","0.3","1000"," 10",trainCallback);
 
 
 
@@ -98,13 +98,14 @@ app.post("/register", function (req, res) {
   res.send("hello "+ body);
 });
 
-/*
+
 app.post("/login", function (req, res) {
   var body = req.body; //uid+smash
   ///
-  data={isApproved:false,conficence:(sonefloat)}
+  //data={isApproved:false,conficence:(sonefloat)}
   res.send(body);
 });
+/*
 app.post("/register", function (req, res) {
   var body = req.body; //all smashes + uid
   ///
