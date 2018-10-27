@@ -91,11 +91,11 @@ function trainCallback(err,stdout,stderr){
 
 app.get("/", function (req, res) {
   var body = req.body;
-  console.log(body);
   res.send("hello");
 });
 app.post("/register", function (req, res) {
   var body = req.body;
+  console.log(body);
   res.send("hello "+ body);
 });
 
