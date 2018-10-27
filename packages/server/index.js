@@ -5,7 +5,7 @@ var express = require("express"),
     util = require('./util/util'),
     pth = require('path');
 
-var upload = multer({ dest: __dirname + "/../uploads" });
+
 var app = express();
 
 app.set("view engine","hbs");
