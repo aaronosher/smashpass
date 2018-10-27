@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
+import signUp from '../Modules/signup';
 
 const makeRootReducer = asyncReducers => combineReducers({
   // Add sync reducers here
   form,
+  signUp,
   ...asyncReducers,
 });
 
