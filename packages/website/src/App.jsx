@@ -5,6 +5,7 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import history from './Store/history';
 import theme from './theme';
+import requireAuth from './Components/RequireAuth';
 import HomePage from './Pages/Home';
 import SignUpPage from './Pages/SignUp';
 import LoginPage from './Pages/Login';
@@ -21,8 +22,8 @@ class App extends Component {
           <Switch>
             <Route path="/signup" component={SignUpPage} />
             <Route path="/login" component={LoginPage} />
-            <Route path="/welcome" component={HomePage} />
-            <Route path="/" component={WelcomePage} />
+            <Route path="/welcome" component={requireAuth(WelcomePage)} />
+            <Route path="/" component={HomePage} />
           </Switch>
         </ConnectedRouter>
       </MuiThemeProvider>

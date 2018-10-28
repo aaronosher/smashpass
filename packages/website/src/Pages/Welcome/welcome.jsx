@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
@@ -10,12 +9,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import styles from './styles';
 
 class Welcome extends React.Component {
-
   render() {
-    const { classes, navigate } = this.props;
+    const { classes, navigate, user } = this.props;
 
     return (
       <React.Fragment>
@@ -29,6 +28,24 @@ class Welcome extends React.Component {
             <Button color="inherit" onClick={navigate('/signUp')}>Sign Up</Button>
           </Toolbar>
         </AppBar>
+        <main className={classes.layout}>
+          {!!user && (
+          <Paper className={classes.paper}>
+            <Typography variant='h6' component='h6'>
+              Welcome
+              &nbsp;
+              {user.firstName}
+              &nbsp;
+              {user.lastName}
+            </Typography>
+            <Typography>
+              Your email address is
+              &nbsp;
+              {user.email}
+            </Typography>
+          </Paper>
+          )}
+        </main>
       </React.Fragment>
     );
   }
@@ -38,7 +55,9 @@ Welcome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
 const mapDispatchToProps = dispatch => ({
   navigate: (path) => () =>  dispatch(push(path)),
 });
