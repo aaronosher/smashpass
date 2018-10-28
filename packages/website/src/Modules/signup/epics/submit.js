@@ -1,5 +1,5 @@
 import { doc } from 'rxfire/firestore'; 
-import { auth, firestore}  from 'firebase';
+import { firestore}  from 'firebase';
 
 import { ofType } from 'redux-observable';
 import { of } from 'rxjs';
@@ -9,13 +9,6 @@ import { SUBMIT, submitSuccess, submitFailure } from '../actions';
 
 const submitSignUpEpic = action$ => action$.pipe(
   ofType(SUBMIT),
-  map(action => {
-    auth().createUserWithEmailAndPassword(
-      action.payload.email,
-      'asdfjalskfjf209fjklfjsvnf2-04fnafadf'
-    );
-    return action;
-  }),
   switchMap(action => {
     const db = firestore();
     const document = db.doc(`users/${action.payload.first_name}${action.payload.last_name}`);
