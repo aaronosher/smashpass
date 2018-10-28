@@ -74,7 +74,7 @@ class Checkout extends React.Component {
         location: location.values.location,
         smashes,
       });
-      setTimeout(() => this.props.navigate('/login'), 30000);
+      setTimeout(() => this.context.router.history.push('/login'), 30000);
     }
     this.setState(state => ({
       activeStep: state.activeStep + 1,
@@ -165,6 +165,10 @@ class Checkout extends React.Component {
 
 Checkout.propTypes = {
   classes: PropTypes.object.isRequired,
+};
+
+Checkout.contextTypes = {
+  router: PropTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

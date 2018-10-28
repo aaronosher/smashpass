@@ -32,7 +32,7 @@ class smashes extends Component {
           Smashes
         </Typography>
         <Typography variant="body1" gutterBottom>
-          In order to provision your account we must generate a signature for your "randomness". To do this we need you to provide a data set of random keypresses. We recommend 100 sets (of 25 characeters), but anything more than 50 is fine. Please enter the data with some amount of consistency and maturity.
+        In order to provision your account we must generate a signature for your characteristic **smashing** of the keyboard. This data will be used as a baseline for determining whether your login request is authentic. Please **smash** your keybord in your preferred way. To do this we ask you to smash 100 times, and make sure to lift your hands between each smash. It should only take a couple of minutes.
         </Typography>
         <Typography variant="body2" gutterBottom>
           {values.length}/100 smashes generated.
