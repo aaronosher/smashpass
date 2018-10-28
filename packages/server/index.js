@@ -36,7 +36,7 @@ function mixMeSomeTrainingData(uFile, smashLibPath){
     if(line.length<5) return;
     else return line.concat(",y")
   });
-
+  uFileData[uFileData.length-1]+="\n";
   trainingData+=uFileData.join("\n");
   //console.log(trainingData);
     for(var i=0;i<libFiles.length;i++){
