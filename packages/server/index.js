@@ -155,9 +155,13 @@ app.post("/login", function (req, res) {
     }
     var out =stdout;
     console.log(stdout);
-    out.replace( /(^.*\[|\].*$)/g, '' );
-    console.log(out);
-    res.send("sucessssssssss \n"+out);
+    var matches = mystring.match(/\[(.*?)\]/);
+    var submatch;
+    if (matches) {
+      submatch = matches[1];
+    }
+    console.log(submatch);
+    res.send("sucessssssssss \n"+submatch);
   });
   ///
 });
