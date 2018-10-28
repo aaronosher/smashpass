@@ -74,7 +74,7 @@ function storeFile(uid,path,data){
   fs.writeFileSync(`${path}/${uid}.txt`, data);
 }
 
-function async sendTrainingDone(data){
+function sendTrainingDone(data){
   const baseUrl = 'https://us-central1-smashpass-hacksheffield-4.cloudfunctions.net';
   const aciton = '/registerCallback';
   const url = `${baseUrl}${aciton}`;
@@ -86,11 +86,7 @@ function async sendTrainingDone(data){
   	json: true,
   };
   try {
-  await rp(options);
-    return ture;
-  } catch (err) {
-  return false
-  }
+  return result = rp(options);
 }
 ///////////////////////////////////////
 
@@ -124,7 +120,8 @@ app.post("/register", function (req, res) {
       	success: false,
       	error: err,
       };
-      sendTrainingDone(data);
+      sendTrainingDone(data)
+        .catch(err => console.error(err));
       return;
     }
     var data = {
@@ -132,7 +129,9 @@ app.post("/register", function (req, res) {
       success: true,
       error: null,
     };
-    sendTrainingDone(data);
+    sendTrainingDone(data)
+      .catch(err => console.error(err));
+
     console.log(stdout);
     res.send("sucessssssssss \n");
     console.log("-------------end reeached-------------")
