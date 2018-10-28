@@ -1,4 +1,4 @@
-import { getUser } from "../auth/actions";
+// import { getUser } from "../auth/actions";
 
 export const START_WAITING = '@@signup/START_WAITING';
 export const STOP_WAITING = '@@signup/STOP_WAITING';
@@ -22,7 +22,6 @@ export const addSmash = smash => ({
 });
 
 export const submit = signUp => {
-  console.log(signUp);
   return ({
   type: SUBMIT,
   payload: signUp,
@@ -32,7 +31,7 @@ export const submitSuccess = () => dispatch => {
   dispatch({
   type: SUBMIT_SUCCESS,
   })
-  dispatch(getUser());
+  // dispatch(getUser());
 };
 
 export const submitFailure = () => ({

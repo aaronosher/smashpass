@@ -47,11 +47,13 @@ class Checkout extends React.Component {
 
   canNext = () => {
     const step = this.state.activeStep;
-    const { location, details } = this.props;
+    const { location, details, smashes } = this.props;
 
     switch (step) {
       case 0:
         return (details.valid && details.dirty)
+      case 1:
+        return (smashes.length >= 50);
       case 2:
         return (location.valid && location.dirty)
       default:

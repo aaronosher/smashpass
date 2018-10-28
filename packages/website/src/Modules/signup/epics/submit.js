@@ -2,8 +2,8 @@ import { doc } from 'rxfire/firestore';
 import { auth, firestore}  from 'firebase';
 
 import { ofType } from 'redux-observable';
-import { of, merge } from 'rxjs';
-import { map, switchMap, catchError, mergeMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 
 import { SUBMIT, submitSuccess, submitFailure } from '../actions';
 

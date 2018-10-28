@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-      {/* <MuiThemeProvider theme={theme}> */}
+      <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <ConnectedRouter history={history}>
           <Switch>
@@ -21,7 +21,7 @@ class App extends Component {
             <Route path="/signup" component={SignUpPage} />
           </Switch>
         </ConnectedRouter>
-      {/* </MuiThemeProvider> */}
+      </MuiThemeProvider>
       </React.Fragment>
     );
   }

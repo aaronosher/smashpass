@@ -1,5 +1,5 @@
 import { authState } from 'rxfire/auth';
-import * as auth from 'firebase/auth';
+import { auth } from 'firebase';
 import { map, switchMap } from 'rxjs/operators';
 import { ofType } from 'redux-observable';
 import { GET_USER, updateUser } from '../actions';
