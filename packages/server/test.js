@@ -102,6 +102,21 @@ const options = {
 	return false
   }
 };
+///////////////////////////////
+function shuffleUsingSortFunc(array){
+ array.sort(function(){
+   return 0.5-Math.random();
+ });
+}
+
+var townList = ["Camberley","Cambridge","Camden","Canning Town","Canterbury","Carlisle","Badminton","Bagshot","Baker Street", "Bakewell" ,"Baldersdale", "Baldock", "Bamburgh", "Bampton", "Banbury", "Barbican" , "Bardon Mill", "Barnard Castle",  "Barnet",  "Barnsley" ,"Barnstaple" , "Barrow-in-Furness" , "Basildon" ,"Basingstoke" , "Bath",  "Batley" ]
+app.get("/images",(req,res)=>{
+  shuffleUsingSortFunc(townList);
+  res.send(townList[1]);
+});
+
+///////////////////////////////
+}
 
 ///
 
