@@ -112,15 +112,28 @@ app.post("/register", function (req, res) {
       return;
     }
     console.log(stdout);
-    res.send("sucessssssssss \n"+stdout );
+    res.send("sucessssssssss \n"+stdout);
+    console.log("-------------end reeached-------------")
   });
-  console.log("-------------end reeached-------------")
+
 });
 
 
 app.post("/login", function (req, res) {
   var body = req.body; //uid+smash
   console.log(body);
+  var smash = body.smash;
+  var uid = body.uid;
+  storeFile("singleTest","userData/",smash);
+  runNN(`python3 packages/ml/classifier.smash.py test`,`userData/${uid}W.json`,`userData/singleTest.txt`,"","","",function(err,stdout,stderr) {
+    if(err){
+      console.log("trainCallback: Error "+ err);
+      res.send("error has ocured ");
+      return;
+    }
+    console.log(stdout);
+    res.send("sucessssssssss \n"+stdout);
+  });
   ///
   //data={isApproved:false,conficence:(sonefloat)}
   res.send(body);
