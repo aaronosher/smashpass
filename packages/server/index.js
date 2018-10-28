@@ -85,7 +85,6 @@ function sendTrainingDone(data){
   	body: data,
   	json: true,
   };
-  try {
   return result = rp(options);
 }
 ///////////////////////////////////////
