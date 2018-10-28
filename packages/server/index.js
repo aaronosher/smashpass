@@ -98,8 +98,9 @@ app.post("/register", function (req, res) {
   console.log(body);
   var smashLog = body.smashes;
   var uid = body.uid;
+  console.log(typeof smashLog)
   //console.log(uid+ " smashes\n "+smashLog)
-  smashLog = smashLog.split("\n");
+  //smashLog = smashLog.split("\n");
   storeFile(uid,"userData/smashLib",smashLog);
   //runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",trainCallback);
 
