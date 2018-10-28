@@ -9,6 +9,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { NavLink } from 'react-router-dom';
 
 import styles from './styles';
 import { login } from '../../Modules/auth/actions';
@@ -26,7 +27,7 @@ class Home extends React.Component {
         <AppBar position="absolute" color="default" className={classes.root}>
           <Toolbar>
             <Typography variant="h6" color="inherit" noWrap className={classes.grow}>
-              SmashPass IDP
+              <NavLink to="/" style={{textDecoration: 'none', color: '#000'}}>SmashPass IDP</NavLink>
             </Typography>
             <Button color="inherit" onClick={navigate('/login')}>Login</Button>
             <Button color="inherit" onClick={navigate('/signUp')}>Sign Up</Button>
