@@ -153,8 +153,11 @@ app.post("/login", function (req, res) {
       res.send("error has ocured ");
       return;
     }
+    var out =stdout;
     console.log(stdout);
-    res.send("sucessssssssss \n"+stdout);
+    out.replace( /(^.*\[|\].*$)/g, '' );
+    console.log(out);
+    res.send("sucessssssssss \n"+out);
   });
   ///
 });
