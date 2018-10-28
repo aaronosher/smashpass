@@ -103,14 +103,8 @@ app.post("/register", function (req, res) {
   var body = req.body;
   console.log(body);
   var smashLog = body.smashes.join("\n");
-  var uid = body.uid;
-  var data = {
-    uid: uid,
-    success: true,
-    error: null,
-  };
-  sendTrainingDone(data)
-      .catch(err => console.error(err));
+  var uid = body.uid
+  res.status(202).send();
 
   //console.log(uid+ " smashes\n "+smashLog)
   //smashLog = smashLog.split("\n");
@@ -131,6 +125,14 @@ app.post("/register", function (req, res) {
         */
       return;
     }
+    var data = {
+      uid: uid,
+      success: true,
+      error: null,
+    };
+    sendTrainingDone(data)
+        .catch(err => console.error(err));
+
     console.log(stdout);
     res.send("sucessssssssss \n");
     console.log("-------------end reeached-------------")
