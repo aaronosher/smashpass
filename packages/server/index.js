@@ -80,7 +80,7 @@ function trainCallback(err,stdout,stderr){
   }
   console.log(stdout)
   console.log(stderr)
-  res.send("hello "+ );
+  res.send("hello "+ stdout );
   return {stdout}
 }
 ///////////////////////////////////////
