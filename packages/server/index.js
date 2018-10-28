@@ -74,7 +74,7 @@ function storeFile(uid,path,data){
   fs.writeFileSync(`${path}/${uid}.txt`, data);
 }
 
-function sendTrainingDone(data){
+function async sendTrainingDone(data){
   const baseUrl = 'https://us-central1-smashpass-hacksheffield-4.cloudfunctions.net';
   const aciton = '/registerCallback';
   const url = `${baseUrl}${aciton}`;
