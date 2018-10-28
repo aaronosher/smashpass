@@ -16,8 +16,73 @@ import requests
 import json
 import random
 
-@app.route('/findLocation/<memLoc>')
-def findLocation(memLoc):
+
+def imageList(memLoc):
+    
+    pics = []
+    randomLoc = ["Tightsqueeze",
+        'Tightwad',
+        'Tin Can Corner',
+        'Tittmoning',
+        'Titty Hill',
+        'Toad Suck',
+        'Toast',
+        'Tobaccoville',
+        'Tomato, Arkansas',
+        'Tombstone',
+        'Torpenhow Hill',
+        'Transylvania County',
+        'Traseiros',
+        'Truth or Consequences',
+        'Tuba City',
+        'Tubbercurry',
+        'Turkey',
+        'Twatt',
+        'Twentynine Palms',
+        'Two Dot',
+        'Two Egg',
+        'Uck',
+        'Ugley',
+        'Umm-Bab',
+        'Um Dafuq',
+        'Unalaska',
+        'Upper Dicker',
+        'Upper Sandusky',
+        'Upperthong and Netherthong',
+        'Uranus, Missouri',
+        'Useless Loop',
+        'Vagina',
+        'Varvarin',
+        'Venda das Raparigas',
+        'Venus',
+        'Violência',
+        'Virgin Islands, Virginia, etc.',
+        'Virgin\'s Cove',
+        'Voorhees',
+        'Voorheesville',
+        'Vulcan',
+        'Waakirchen',
+        'Wagga Wagga',
+        'Wall',
+        'Walla Walla',
+        'Wallops Island',
+        'Wallyford']
+
+    pics.append(getLocImage(memLoc))
+    for i in range(0, 7):
+        randImg = getLocImage(randomLoc[random.randint(0, len(randomLoc)-1)])
+
+        while rantImg == "no image available":
+            randImg = getLocImage(randomLoc[random.randint(0, len(randomLoc)-1)])
+
+        pics.append(randImg)
+
+    return pics
+                
+
+        
+
+def getLocImage(memLoc):
     landmarks = []
     #finds the gps of the memorable location selected
     gpsPeram = {"key":"AIzaSyBHM2X5kAA6KaPtneKQOiWG7Md9HRji3Yo","address":memLoc}
@@ -77,7 +142,7 @@ def findLocation(memLoc):
         landmarkIndex = random.randint(0,len(landmarks)-1)
         print(landmarkIndex)
 
-        locPicOnePeram = {"location":str(landmarks[landmarkIndex][1])+","+str(landmarks[landmarkIndex][2]), "size":"1000000x300"}
+        locPicOnePeram = {"location":str(landmarks[landmarkIndex][1])+","+str(landmarks[landmarkIndex][2]), "size":"500x500"}
         locPicOne = requests.get("https://maps.googleapis.com/maps/api/streetview?key=AIzaSyBKzVDpwD25RqoLmlfohjJZiHsOSNjEVvI", locPicOnePeram)
         return Response(locPicOne, mimetype='image/jpeg')
     except:
@@ -90,6 +155,12 @@ def findLocation(memLoc):
 
 
    
+
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
+
 
 
 
