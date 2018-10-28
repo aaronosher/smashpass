@@ -1,5 +1,5 @@
 import initialState from './initialState';
-import { START_WAITING, STOP_WAITING } from './actions';
+import { START_WAITING, STOP_WAITING, ADD_SMASH } from './actions';
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -13,6 +13,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         wait: false,
+      };
+
+    case ADD_SMASH:
+      const smashes = state.smashes;
+      smashes.push(action.payload);
+      return {
+        ...state,
+        smashes,
       };
 
     default:
