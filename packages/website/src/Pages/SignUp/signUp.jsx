@@ -74,6 +74,7 @@ class Checkout extends React.Component {
         location: location.values.location,
         smashes,
       });
+      setTimeout(() => this.props.navigate('/login'), 30000);
     }
     this.setState(state => ({
       activeStep: state.activeStep + 1,
@@ -93,7 +94,7 @@ class Checkout extends React.Component {
   };
 
   render() {
-    const { classes, navigate, newUser } = this.props;
+    const { classes, navigate } = this.props;
     const { activeStep } = this.state;
 
     return (
@@ -126,19 +127,12 @@ class Checkout extends React.Component {
                   <Typography variant="h5" gutterBottom>
                     Thank you for signing up.
                   </Typography>
-                  {!newUser.provisioned && (
                   <React.Fragment>
                     <CircularProgress className={classes.progress} />
                     <Typography variant="subtitle1">
                       We're currently provisioning your account. This may take some time. We'll let you know once your account is set up.
                     </Typography>
                   </React.Fragment>
-                  )}
-                  {newUser.provisioned && (
-                    <Typography variant="subtitle1">
-                      Congratulations, your account is set up. You can now login!
-                    </Typography>
-                  )}
                 </React.Fragment>
               ) : (
                 <React.Fragment>
