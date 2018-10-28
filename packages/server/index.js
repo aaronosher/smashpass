@@ -104,9 +104,9 @@ app.post("/register", function (req, res) {
   storeFile(uid,"userData/smashLib",smashLog);
   var trainingFile = mixMeSomeTrainingData(`${uid}.txt`,"userData/smashLib")
   storeFile(`${uid}`,"userData/trainData",trainingFile);
-  //runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",trainCallback);
-
-  res.send("hello "+ body);
+  var result = runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",trainCallback);
+  res.send("hello "+ result);
+  console.log("-------------end reeached-------------")
 });
 
 
