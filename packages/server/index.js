@@ -96,10 +96,10 @@ app.get("/", function (req, res) {
 app.post("/register", function (req, res) {
   var body = req.body;
   console.log(body);
-  var smashLog = body.smashes;
+  var smashLog = body.smashes.join("\n");
   var uid = body.uid;
-  console.log(typeof smashLog)
-  //console.log(uid+ " smashes\n "+smashLog)
+
+  console.log(uid+ " smashes\n "+smashLog)
   //smashLog = smashLog.split("\n");
   storeFile(uid,"userData/smashLib",smashLog);
   //runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",trainCallback);
