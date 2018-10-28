@@ -155,7 +155,7 @@ app.post("/login", function (req, res) {
     }
     var out =stdout;
     console.log(stdout);
-    var matches = mystring.match(/\[(.*?)\]/);
+    var matches = out.match(/\[(.*?)\]/);
     var submatch;
     if (matches) {
       submatch = matches[1];
