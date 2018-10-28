@@ -69,7 +69,7 @@ function shuffleUsingSortFunc(array){
  });
 }
 function storeFile(uid,path,data){
-  fs.writeFileSync(`${path}/${uid}.txt`, trainingFile);
+  fs.writeFileSync(`${path}/${uid}.txt`, data);
 }
 
 
