@@ -33,7 +33,7 @@ function mixMeSomeTrainingData(uFile, smashLibPath){
   var libFiles = util.getAllFilesSync("userData/smashLib");
   var trainingData=[];
   uFileData = uFileData.split("\n");
-  var linesToTake = (uFileData.length*7)/libFiles.length;
+  var linesToTake = (uFileData.length*5)/libFiles.length;
   uFileData=  uFileData.map(line => {
     if(line.length<5) return;
     else return line.concat(",y")
