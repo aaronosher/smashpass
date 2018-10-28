@@ -7,6 +7,7 @@ import history from './Store/history';
 import theme from './theme';
 import HomePage from './Pages/Home';
 import SignUpPage from './Pages/SignUp';
+import LoginPage from './Pages/Login';
 import './App.css';
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
           <Switch>
             <Route path="/" component={HomePage} exact />
             <Route path="/signup" component={SignUpPage} />
+            <Route path="/login" component={LoginPage} />
           </Switch>
         </ConnectedRouter>
       </MuiThemeProvider>

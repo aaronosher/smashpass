@@ -1,18 +1,19 @@
 import initialState from './intialState';
-import { UPDATE_USER, CREATE_USER_FAILURE } from './actions';
+import { LOGIN_SUCCESS, LOGIN_FAILURE } from './actions';
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_USER: {
+    case LOGIN_SUCCESS:
       return {
         ...state,
         user: action.payload,
+        error: null,
       };
-    }
 
-    case CREATE_USER_FAILURE: 
+    case LOGIN_FAILURE:
       return {
         ...state,
+        user: null,
         error: action.payload,
       };
 
