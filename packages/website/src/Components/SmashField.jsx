@@ -57,7 +57,7 @@ class SmashField extends Component {
   }
 
   render() {
-    const { label, classes, input: { value }, overallProgress } = this.props;
+    const { label, classes, input: { value }, overallProgress, meta } = this.props;
     const { progress } = this.state;
     return (
       <FormControl fullWidth>
@@ -67,6 +67,7 @@ class SmashField extends Component {
           fullWidth
           value={value}
           type="password"
+          error={!!meta.error && meta.touched}
         />
         <div className={classes.root}>
           <LinearProgress variant="determinate" color="primary" value={progress} className={classes.progress} />
@@ -75,6 +76,11 @@ class SmashField extends Component {
         <FormHelperText>
           Smash your keyboard until the bar fills up.
         </FormHelperText>
+        {!!meta.error && meta.touched && (
+          <FormHelperText error>
+            {meta.error}
+          </FormHelperText>
+        )}
       </FormControl>
     )
   }

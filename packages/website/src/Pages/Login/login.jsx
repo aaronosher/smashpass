@@ -17,6 +17,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import SmashField from '../../Components/SmashField';
+import validator from '../../Modules/auth/validators/login';
 
 import styles from './styles';
 import { login } from '../../Modules/auth/actions';
@@ -48,7 +49,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { classes, navigate } = this.props;
+    const { classes, navigate, auth } = this.props;
 
     return (
       <React.Fragment>
@@ -70,6 +71,10 @@ class Home extends React.Component {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+            {!!auth.error && (
+            <Typography component="body1" variant="body1" color="error">
+              {auth.error.message}
+            </Typography>)}
             <Form className={classes.form} onSubmit={this.props.handleSubmit(this.submit)}>
               <FormControl margin="normal" fullWidth>
                 <Field
@@ -87,7 +92,7 @@ class Home extends React.Component {
                   label="Smashpass"
                   fullWidth
                   component={SmashField}
-                  onComplete={console.log}
+                  onComplete={() => true}
                 />
               </FormControl>
               <Button
@@ -96,6 +101,7 @@ class Home extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                disabled={auth.loggingIn}
               >
                 Sign in
               </Button>
@@ -111,7 +117,9 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 const mapDispatchToProps = dispatch => ({
   navigate: (path) => () =>  dispatch(push(path)),
   loginUser: (email, smash) => dispatch(login(email, smash)),
@@ -121,6 +129,7 @@ export default compose(
   withStyles(styles, { withTheme: true }),
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
-    form: 'login'
+    form: 'login',
+    validate: validator,
   }),
 )(Home);

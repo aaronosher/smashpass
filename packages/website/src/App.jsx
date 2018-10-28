@@ -8,6 +8,7 @@ import theme from './theme';
 import HomePage from './Pages/Home';
 import SignUpPage from './Pages/SignUp';
 import LoginPage from './Pages/Login';
+import WelcomePage from './Pages/Welcome';
 import './App.css';
 
 class App extends Component {
@@ -18,9 +19,10 @@ class App extends Component {
         <CssBaseline />
         <ConnectedRouter history={history}>
           <Switch>
-            <Route path="/" component={HomePage} exact />
             <Route path="/signup" component={SignUpPage} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/welcome" component={HomePage} />
+            <Route path="/" component={WelcomePage} />
           </Switch>
         </ConnectedRouter>
       </MuiThemeProvider>

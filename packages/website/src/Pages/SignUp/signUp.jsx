@@ -19,6 +19,7 @@ import SmashesStep from './steps/smashes';
 import LocationStep from './steps/location';
 import styles from './styles';
 import { submit } from '../../Modules/signup';
+import { push } from 'connected-react-router';
 
 const steps = ['Details', 'Smashes', 'Location'];
 
@@ -91,7 +92,7 @@ class Checkout extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, navigate } = this.props;
     const { activeStep } = this.state;
 
     return (
@@ -99,9 +100,11 @@ class Checkout extends React.Component {
         <CssBaseline />
         <AppBar position="absolute" color="default" className={classes.appBar}>
           <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h6" color="inherit" noWrap className={classes.grow}>
               SmashPass IDP
             </Typography>
+            <Button color="inherit" onClick={navigate('/login')}>Login</Button>
+            <Button color="inherit" onClick={navigate('/signUp')}>Sign Up</Button>
           </Toolbar>
         </AppBar>
         <main className={classes.layout}>
@@ -160,7 +163,8 @@ Checkout.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  submitSignUp: (signup) => dispatch(submit(signup)), 
+  submitSignUp: (signup) => dispatch(submit(signup)),
+  navigate: (path) => () =>  dispatch(push(path)),
 });
 
 const mapStateToProps = state => ({

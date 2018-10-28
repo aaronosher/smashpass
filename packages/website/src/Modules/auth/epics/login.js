@@ -11,13 +11,14 @@ const submitSignUpEpic = action$ => action$.pipe(
   tap(action => console.log(action)),
   switchMap(action => {
     const { email, smash } = action.payload;
-    return functions().httpsCallable('login')(email, smash);
+    return functions().httpsCallable('login')({ email, smash });
   }),
-  map(result => {
-    if (result.successfull) {
-      return loginSuccess(result.user);
+  map(res => {
+    console.log(res);
+    if (res.data.success) {
+      return loginSuccess(res.data.user);
     } else {
-      return loginFailure(result.error);
+      return loginFailure(res.data.error);
     }
   }),
   catchError(error => of(loginFailure({ message: error.message, code: error.code }))),

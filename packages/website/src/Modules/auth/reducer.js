@@ -1,13 +1,19 @@
 import initialState from './intialState';
-import { LOGIN_SUCCESS, LOGIN_FAILURE } from './actions';
+import { LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE } from './actions';
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOGIN:
+      return {
+        ...state,
+        loggingIn: true,
+      }
     case LOGIN_SUCCESS:
       return {
         ...state,
         user: action.payload,
         error: null,
+        loggingIn: false,
       };
 
     case LOGIN_FAILURE:
@@ -15,6 +21,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: null,
         error: action.payload,
+        loggingIn: false,
       };
 
     default:
