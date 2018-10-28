@@ -33,7 +33,7 @@ class Home extends React.Component {
           </Toolbar>
         </AppBar>
         <main className={classes.layout}>
-          <Step2 />
+          <Step1 />
         </main>
       </React.Fragment>
     );
