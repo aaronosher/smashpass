@@ -5,6 +5,8 @@ var express = require("express"),
     util = require('./util/util'),
     pth = require('path');
 const { exec } = require('child_process');
+const rp = require('request-promise-native');
+
 
 var app = express();
 
@@ -72,15 +74,18 @@ function storeFile(uid,path,data){
   fs.writeFileSync(`${path}/${uid}.txt`, data);
 }
 
+function sendTrainingDone(data){
+  const baseUrl = 'https://us-central1-smashpass-hacksheffield-4.cloudfunctions.net';
+  const aciton = '/registerCallback';
+  const url = `${baseUrl}${aciton}`;
 
-function trainCallback(err,stdout,stderr){
-  if(err){
-    console.log("trainCallback: Error "+ err);
-    return null;
-  }
-  console.log(stdout)
-  console.log(stderr)
-  return {stdout}
+  const options = {
+  	method: 'POST',
+  	uri: url,
+  	body: data,
+  	json: true,
+  };
+  return result = rp(options);
 }
 ///////////////////////////////////////
 
@@ -98,7 +103,8 @@ app.post("/register", function (req, res) {
   var body = req.body;
   console.log(body);
   var smashLog = body.smashes.join("\n");
-  var uid = body.uid;
+  var uid = body.uid
+  res.status(202).send();
 
   //console.log(uid+ " smashes\n "+smashLog)
   //smashLog = smashLog.split("\n");
@@ -108,22 +114,61 @@ app.post("/register", function (req, res) {
   runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",function(err,stdout,stderr) {
     if(err){
       console.log("trainCallback: Error "+ err);
-      res.send("error has ocured ");
+      //res.send("error has ocured ");
+      /*var data = {
+      	uid: uid,
+      	success: false,
+      	error: err,
+      };
+      sendTrainingDone(data)
+        .catch(err => console.error(err));
+        */
       return;
     }
+    var data = {
+      uid: uid,
+      success: true,
+      error: null,
+    };
+    sendTrainingDone(data)
+        .catch(err => console.error(err));
+
     console.log(stdout);
-    res.send("sucessssssssss \n"+stdout );
+    //res.send("sucessssssssss \n");
+    console.log("-------------end reeached-------------")
   });
-  console.log("-------------end reeached-------------")
+
 });
 
 
 app.post("/login", function (req, res) {
   var body = req.body; //uid+smash
   console.log(body);
+  var smash = body.smash;
+  var uid = body.uid;
+  storeFile("singleTest","userData/",smash);
+  runNN(`python3 packages/ml/classifier.smash.py test`,`userData/${uid}W.json`,`userData/singleTest.txt`,"","","",function(err,stdout,stderr) {
+    if(err){
+      console.log("trainCallback: Error "+ err);
+      res.send("error has ocured ");
+      return;
+    }
+    var out =stdout;
+    console.log(stdout);
+    var matches = out.match(/\[(.*?)\]/);
+    var submatch;
+    if (matches) {
+      submatch = matches[1];
+      submatch = (submatch.split(" ")).slice(1,2);
+    }
+    else{
+      res.send("faill no submatches\n");
+    }
+    var data = {uid:uid,conf:submatch}
+    console.log(submatch);
+    res.send(data);
+  });
   ///
-  //data={isApproved:false,conficence:(sonefloat)}
-  res.send(body);
 });
 /*
 app.post("/register", function (req, res) {

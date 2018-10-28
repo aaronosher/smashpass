@@ -74,5 +74,36 @@ function storeFile(uid,path,data){
 var trainingFile = mixMeSomeTrainingData("aaronSmash.txt","userData/smashLib")
 storeFile("aaron","userData/trainData",trainingFile);
 
+////
+const rp = require('request-promise-native');
+
+
+const baseUrl = 'https://us-central1-smashpass-hacksheffield-4.cloudfunctions.net';
+const aciton = '/registerCallback';
+const url = `${baseUrl}${aciton}`;
+
+const data = {
+	uid: 'abc123',
+	success: true,
+	error: null,
+};
+
+const options = {
+	method: 'POST',
+	uri: url,
+	body: data,
+	json: true,
+};
+
+  try {
+	await rp(options);
+	  return ture;
+  } catch (err) {
+	return false
+  }
+};
+
+///
+
 //runNN("python3 packages/ml/classifier.smash.py train-fresh","userData/testW.json","userData/smashSample.txt","0.3","1000"," 10");
 //runNN("python3 packages/ml/classifier.smash.py validate","userData/testW.json","userData/smashSampleTest.txt"," "," "," " );
