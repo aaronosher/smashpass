@@ -130,7 +130,7 @@ app.post("/register", function (req, res) {
       error: null,
     };
     sendTrainingDone(data)
-      .catch(err => console.error(err));
+        .catch(err => console.error(err));
 
     console.log(stdout);
     res.send("sucessssssssss \n");
