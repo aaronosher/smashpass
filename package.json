@@ -1,0 +1,25 @@
+{
+  "name": "smashpass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "packages/server/index.js",
+  "scripts": {
+    "test": "node packages/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronosher/smashpass.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "hbs": "^4.0.1",
+    "request": "^2.83.0"
+  },
+  "bugs": {
+    "url": "https://github.com/aaronosher/smashpass/issues"
+  },
+  "homepage": "https://github.com/aaronosher/smashpass#readme"
+}
