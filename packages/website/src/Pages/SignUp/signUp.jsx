@@ -14,6 +14,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DetailsStep from './steps/details';
 import SmashesStep from './steps/smashes';
 import LocationStep from './steps/location';
@@ -92,7 +93,7 @@ class Checkout extends React.Component {
   };
 
   render() {
-    const { classes, navigate } = this.props;
+    const { classes, navigate, newUser } = this.props;
     const { activeStep } = this.state;
 
     return (
@@ -125,9 +126,19 @@ class Checkout extends React.Component {
                   <Typography variant="h5" gutterBottom>
                     Thank you for signing up.
                   </Typography>
-                  <Typography variant="subtitle1">
-                    We're currently provisioning your account. This may take some time. We'll let you know once your account is set up.
-                  </Typography>
+                  {!newUser.provisioned && (
+                  <React.Fragment>
+                    <CircularProgress className={classes.progress} />
+                    <Typography variant="subtitle1">
+                      We're currently provisioning your account. This may take some time. We'll let you know once your account is set up.
+                    </Typography>
+                  </React.Fragment>
+                  )}
+                  {newUser.provisioned && (
+                    <Typography variant="subtitle1">
+                      Congratulations, your account is set up. You can now login!
+                    </Typography>
+                  )}
                 </React.Fragment>
               ) : (
                 <React.Fragment>
@@ -179,6 +190,7 @@ const mapStateToProps = state => ({
     values: getFormValues('signup-location')(state),
   },
   smashes: state.signUp.smashes,
+  newUser: state.signUp.newUser,
 });
 
 export default compose(

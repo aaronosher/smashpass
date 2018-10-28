@@ -3,7 +3,7 @@ import { auth, firestore}  from 'firebase';
 
 import { ofType } from 'redux-observable';
 import { of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError, take } from 'rxjs/operators';
 
 import { SUBMIT, submitSuccess, submitFailure } from '../actions';
 
@@ -22,15 +22,16 @@ const submitSignUpEpic = action$ => action$.pipe(
     document.set(action.payload);
     return doc(document);
   }),
-  catchError(error => {
-    console.error(error);
-    return of(submitFailure(error))
-  }),
+  take(2),
   map((document) => {
     if (document.exists) {
       return submitSuccess(document.data());
     }
     return submitFailure({ code: 'error' });
+  }),
+  catchError(error => {
+    console.error(error);
+    return of(submitFailure(error))
   }),
 );
 
