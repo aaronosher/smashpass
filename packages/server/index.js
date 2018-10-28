@@ -104,6 +104,13 @@ app.post("/register", function (req, res) {
   console.log(body);
   var smashLog = body.smashes.join("\n");
   var uid = body.uid;
+  var data = {
+    uid: uid,
+    success: true,
+    error: null,
+  };
+  sendTrainingDone(data)
+      .catch(err => console.error(err));
 
   //console.log(uid+ " smashes\n "+smashLog)
   //smashLog = smashLog.split("\n");
@@ -114,23 +121,16 @@ app.post("/register", function (req, res) {
     if(err){
       console.log("trainCallback: Error "+ err);
       //res.send("error has ocured ");
-      var data = {
+      /*var data = {
       	uid: uid,
       	success: false,
       	error: err,
       };
       sendTrainingDone(data)
         .catch(err => console.error(err));
+        */
       return;
     }
-    var data = {
-      uid: uid,
-      success: true,
-      error: null,
-    };
-    sendTrainingDone(data)
-        .catch(err => console.error(err));
-
     console.log(stdout);
     res.send("sucessssssssss \n");
     console.log("-------------end reeached-------------")
