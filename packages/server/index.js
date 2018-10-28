@@ -79,6 +79,8 @@ function trainCallback(err,stdout,stderr){
     return {err:true,errMsg:err};
   }
   console.log(stdout)
+  console.log(stderr)
+  res.send("hello "+ );
   return {stdout}
 }
 ///////////////////////////////////////
@@ -105,7 +107,7 @@ app.post("/register", function (req, res) {
   var trainingFile = mixMeSomeTrainingData(`${uid}.txt`,"userData/smashLib")
   storeFile(`${uid}`,"userData/trainData",trainingFile);
   var result = runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",trainCallback);
-  res.send("hello "+ result);
+  //res.send("hello "+ result);
   console.log("-------------end reeached-------------")
 });
 
