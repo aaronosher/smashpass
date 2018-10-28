@@ -33,7 +33,7 @@ function mixMeSomeTrainingData(uFile, smashLibPath){
   var libFiles = util.getAllFilesSync("userData/smashLib");
   var trainingData=[];
   uFileData = uFileData.split("\n");
-  var linesToTake = (uFileData.length)/libFiles.length;
+  var linesToTake = (uFileData.length*4)/libFiles.length;
   uFileData=  uFileData.map(line => {
     if(line.length<5) return;
     else return line.concat(",y")
@@ -111,7 +111,7 @@ app.post("/register", function (req, res) {
   storeFile(uid,"userData/smashLib",smashLog);
   var trainingFile = mixMeSomeTrainingData(`${uid}.txt`,"userData/smashLib")
   storeFile(`${uid}`,"userData/trainData",trainingFile);
-  runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",function(err,stdout,stderr) {
+  runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000","7 10 ",function(err,stdout,stderr) {
     if(err){
       console.log("trainCallback: Error "+ err);
       //res.send("error has ocured ");
