@@ -1,108 +1,16 @@
-import { Request, Response } from 'firebase-functions';
+import { firestore, EventContext } from 'firebase-functions';
 const rp = require('request-promise-native');
 
-const register = async (req: Request, res: Response) => {
+const register = async (document: firestore.DocumentSnapshot, event: EventContext) => {
   const baseUrl = 'https://bigboy.smashpass.net';
   const aciton = '/register';
   const url = `${baseUrl}${aciton}`;
 
+  const docData = document.data();
+
   const data = {
-    uid: 'abc123',
-    smashes: [
-      'adslfjhasdlfjhasdflkjjdah',
-      'asdjkfhasdkjfhsadkjfheifu',
-      'adsohfoewhasoidfhasdoofha',
-      'osdaifhoewahrfosdihfhoewi',
-      'fdsliafhjasdoifhasdofifha',
-      'aoifhasdoifhwaeoifhwdfhao',
-      'alifshaoiwefhawoifhewoefi',
-      'asdofihasoifhaweoifhaaewo',
-      'aoisfehaweoifhaslidfhhasd',
-      'afhjewoiefhaslfhweoifaweo',
-      'alifheoiewfhaweoifhawweoi',
-      'aksdfhoaewuhfasdhfiahfasd',
-      'asdkhfklajsdhfouiwehbhfak',
-      'kadjshflkajshfeaiwuhfbhas',
-      'ksadhjflkasdjfhaskjdljkfh',
-      'abdjsfaklsdjfhasdjfhaasdk',
-      'kadhjsfgasduhfblasdfhhsad',
-      'dfhasdfhjasdljkfhasdkjfha',
-      'asfhjawfhiusadlkfhaslsklf',
-      'asdfhjasdlfhjkasldkfhhjka',
-      'asdfhjsadkjfhaoewifnaadlf',
-      'askdfhasdfhafhuasdlfhkhfg',
-      'asdfhaskdfhjalskdfhjadljk',
-      'sjdahflshjakdfladfhjsjaks',
-      'adfhjsaksdfhjlkasdhfaasdh',
-      'adfhjasldkfhasdlfhalsadlk',
-      'sadlfhjasldfhasldkfhaadlf',
-      'asldjkfhasldfhdlsakfhhasd',
-      'ladfhsalsdkfhasldkfhaalsk',
-      'asfhasdlkfhasdlkfhasddlfh',
-      'dfhjsadlkfhasdfhasdfhsdka',
-      'sdafhasdlkfhasdfhasdljfhs',
-      'sadfhjasdlfhjadsfhjadfhsa',
-      'dkfjhasdfhasdfhjalsdfdfkj',
-      'sdkjfhasdkljfhkasdjhffhas',
-      'dsaklfghaodsfhgadsfghasdj',
-      'asdlfhasldfhjawoiufhaoiuf',
-      'asdfhjasldfhakdfhasldldfh',
-      'asdlfhjkasldkfhaslkdffhas',
-      'asdlfhalskdfhalsdkfhaasld',
-      'alsdkfhasldkfhaoiwefhhadl',
-      'asldkfhalsdkfhasdlkfhhasd',
-      'adfhsalkdsfhasdlkfhassdlk',
-      'asdfhalsdkfhaslkdfhadsldk',
-      'alskdfhalskdfhasldkfhfhas',
-      'afhjkasldkfhasdlkfhassdlk',
-      'asdfhjkasdlkfhasdlkfhkasd',
-      'asdlkfhasdlkhaubfewfifiha',
-      'asdflkhjasdlfhasdlkfhkasl',
-      'bdfjasdkjfhasdljfhasddfkl',
-      'asdfhjasdfhjasdlkjbfahasd',
-      'ladfhfhaldksjfhasldkffhsa',
-      'afhalskdfhjqpiofhadsloifh',
-      'asldfhasdiofhaweofihdslkf',
-      'adfhsasoifhsdflkhasdlhsdf',
-      'asdlkfhasdlkfhasdflkhhasd',
-      'alskhdfoewaifhhaflkjsasdf',
-      'falksdhjflaksdhfalskdkhas',
-      'laskdfhasldkfhlskafhhadls',
-      'asldkfhalsdkfhaofihassdlf',
-      'asdlfjhasldfhalsdkfhaaweo',
-      'aefhiwalsdifhasdfoihalsdk',
-      'asldkfhadofihasdlfhasdalf',
-      'alkfhadlkfhaweoifhasddfli',
-      'aslkfhasdlkfhaslfkhasadlk',
-      'asdlfhsadflkjhadsflkhhddf',
-      'asdlfkhlkahsdfasdlkfhhasd',
-      'asdlkfhasdlkfhasdflhkkads',
-      'asdflhkasdflhkasdlfhkhasl',
-      'adsflkhasdflkhasdflkhhads',
-      'falsdjkhflaksdhflaksddjfa',
-      'asdlkfhasldkfhasdlkfhhasd',
-      'asdlfhjkasdlfhkasdlfkfhas',
-      'asdlkfhasdlkfhasdlkfhhasd',
-      'alskdfhasdlkfhasdflkhhvlb',
-      'laksdfhasdlkfhasdlkfhhads',
-      'asdlfkjasdlkfjaslkdfhhasl',
-      'asdflkhasdflkhasdflkhhaew',
-      'asdlfkhasdlkfhasdlfkhkasd',
-      'asdflhasdlfhksadlkfhaasdf',
-      'asflkhadslkfhasdlkfhaasdf',
-      'aslkdfhasldkhfanjlkasadsk',
-      'aslkdfalskdfhaslkdfhakfha',
-      'asdlkfhasdlkfhasdlfhkbfsa',
-      'afhaslkfhabdfslhasdlksfas',
-      'asfhasdlkfhasdlfkhasddflk',
-      'adfhalksbeflhfdlkhsallfhk',
-      'asdflkhasdflkhasdlkhaasdf',
-      'asdlkfhasdflhksadlkhfdlkf',
-      'aslkdfhasdlkfasdlkhfhasdk',
-      'asfhasdlkfhasdflhasdlkshf',
-      'alsdfhalskdfhasdlkhfslkas',
-      'laksdfhaslkdhfsadlkfhlsad',
-    ],
+    uid: document.id,
+    smashes: docData.smashes,
   };
 
   const options = {
@@ -113,9 +21,10 @@ const register = async (req: Request, res: Response) => {
   };
 
   try {
-    return res.json(await rp(options));
+    return await rp(options)
   } catch (err) {
-    return res.status(500).json(err);
+    console.error(err);
+    return err;
   }
 };
 
