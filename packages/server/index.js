@@ -5,6 +5,8 @@ var express = require("express"),
     util = require('./util/util'),
     pth = require('path');
 const { exec } = require('child_process');
+const rp = require('request-promise-native');
+
 
 var app = express();
 
@@ -72,15 +74,23 @@ function storeFile(uid,path,data){
   fs.writeFileSync(`${path}/${uid}.txt`, data);
 }
 
+function sendTrainingDone(data){
+  const baseUrl = 'https://us-central1-smashpass-hacksheffield-4.cloudfunctions.net';
+  const aciton = '/registerCallback';
+  const url = `${baseUrl}${aciton}`;
 
-function trainCallback(err,stdout,stderr){
-  if(err){
-    console.log("trainCallback: Error "+ err);
-    return null;
+  const options = {
+  	method: 'POST',
+  	uri: url,
+  	body: data,
+  	json: true,
+  };
+  try {
+  await rp(options);
+    return ture;
+  } catch (err) {
+  return false
   }
-  console.log(stdout)
-  console.log(stderr)
-  return {stdout}
 }
 ///////////////////////////////////////
 
@@ -108,11 +118,23 @@ app.post("/register", function (req, res) {
   runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",function(err,stdout,stderr) {
     if(err){
       console.log("trainCallback: Error "+ err);
-      res.send("error has ocured ");
+      //res.send("error has ocured ");
+      var data = {
+      	uid: uid,
+      	success: false,
+      	error: err,
+      };
+      sendTrainingDone(data);
       return;
     }
+    var data = {
+      uid: uid,
+      success: true,
+      error: null,
+    };
+    sendTrainingDone(data);
     console.log(stdout);
-    res.send("sucessssssssss \n"+stdout);
+    res.send("sucessssssssss \n");
     console.log("-------------end reeached-------------")
   });
 
