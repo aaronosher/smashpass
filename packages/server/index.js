@@ -159,7 +159,7 @@ app.post("/login", function (req, res) {
     var submatch;
     if (matches) {
       submatch = matches[1];
-      submatch = (submatch.split(" ")).slice(0,2);
+      submatch = (submatch.split(" ")).slice(1,2);
     }
     else{
       res.send("faill no submatches\n");
