@@ -5,10 +5,26 @@ import { reduxForm, Field } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
+import validator from '../../../Modules/signup/validators/details';
 
-const OuterTextField = (props) => <TextField {...props} {...props.input} />;
+const OuterTextField = (props) => (
+  <FormControl fullWidth>
+    <TextField 
+      {...props}
+      {...props.input}
+      error={!!props.meta.error && props.meta.touched}
+    />
+    {!!props.meta.error && props.meta.touched && (
+      <FormHelperText error>
+        {props.meta.error}
+      </FormHelperText>
+    )}
+  </FormControl>
+);
 
 class details extends Component {
   constructor(props) {
@@ -84,7 +100,6 @@ class details extends Component {
 }
 
 details.propTypes = {
-  validEmitter: PropTypes.func.isRequired,
   valid: PropTypes.bool.isRequired,
 }
 
@@ -93,5 +108,6 @@ export default compose(
     form: 'signup-details',
     destroyOnUnmount: false,
     onChange: details.onChange,
+    validate: validator,
   }),
 )(details);

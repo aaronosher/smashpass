@@ -1,6 +1,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { isValid, isDirty, getFormValues } from 'redux-form';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,6 +18,7 @@ import DetailsStep from './steps/details';
 import SmashesStep from './steps/smashes';
 import LocationStep from './steps/location';
 import styles from './styles';
+import { submit } from '../../Modules/signup';
 
 const steps = ['Details', 'Smashes', 'Location'];
 
@@ -22,6 +26,11 @@ class Checkout extends React.Component {
   state = {
     activeStep: 0,
   };
+
+  constructor(props) {
+    super(props);
+    this.handleNext = this.handleNext.bind(this);
+  }
 
   getStepContent(step) {
     switch (step) {
@@ -36,11 +45,32 @@ class Checkout extends React.Component {
     }
   }
 
-  handleValidStep = (step, valid) => {
-    console.log(`step ${step} is ${(valid) ? 'valid' : 'valid'}`);
+  canNext = () => {
+    const step = this.state.activeStep;
+    const { location, details } = this.props;
+
+    switch (step) {
+      case 0:
+        return (details.valid && details.dirty)
+      case 2:
+        return (location.valid && location.dirty)
+      default:
+        return true;
+    }
   }
 
   handleNext = () => {
+    const { location, smashes, details, submitSignUp } = this.props;
+    if (this.state.activeStep === 2) {
+      console.log('sign up');
+      submitSignUp({
+        first_name: details.values.firstName,
+        last_name: details.values.lastName,
+        email: details.values.email,
+        location: location.values.location,
+        smashes,
+      });
+    }
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
@@ -108,6 +138,7 @@ class Checkout extends React.Component {
                       color="primary"
                       onClick={this.handleNext}
                       className={classes.button}
+                      disabled={!this.canNext()}
                     >
                       {activeStep === steps.length - 1 ? 'Register' : 'Next'}
                     </Button>
@@ -126,4 +157,25 @@ Checkout.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+const mapDispatchToProps = dispatch => ({
+  submitSignUp: (signup) => dispatch(submit(signup)), 
+});
+
+const mapStateToProps = state => ({
+  details: {
+    valid: isValid('signup-details')(state),
+    dirty: isDirty('signup-details')(state),
+    values: getFormValues('signup-details')(state),
+  },
+  location: {
+    valid: isValid('signup-location')(state),
+    dirty: isDirty('signup-location')(state),
+    values: getFormValues('signup-location')(state),
+  },
+  smashes: state.signUp.smashes,
+});
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps, mapDispatchToProps),
+)(Checkout);

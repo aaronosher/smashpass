@@ -58,7 +58,6 @@ class smashes extends Component {
 }
 
 smashes.propTypes = {
-  validEmitter: PropTypes.func.isRequired,
   valid: PropTypes.bool.isRequired,
   wait: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,

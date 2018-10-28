@@ -1,8 +1,8 @@
 import { combineEpics } from 'redux-observable';
-import submitEpic from './epics/submit';
+import getUserEpic from './epics/getUser';
 
 const epic = combineEpics(
-  submitEpic,
+  getUserEpic,
 );
 
 export default epic;
