@@ -135,8 +135,6 @@ app.post("/login", function (req, res) {
     res.send("sucessssssssss \n"+stdout);
   });
   ///
-  //data={isApproved:false,conficence:(sonefloat)}
-  res.send(body);
 });
 /*
 app.post("/register", function (req, res) {
