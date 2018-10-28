@@ -7,6 +7,6 @@ import LoginFunction from './login';
 import RegisterFunction from './register';
 import RegisterCallbackFunction from './registerCallback';
 
-export const login = https.onRequest(LoginFunction);
+export const login = https.onCall(LoginFunction);
 export const onRegister = firestore.document('users/{userId}').onCreate(RegisterFunction);
 export const registerCallback = https.onRequest(RegisterCallbackFunction);
