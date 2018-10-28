@@ -76,7 +76,7 @@ function storeFile(uid,path,data){
 function trainCallback(err,stdout,stderr){
   if(err){
     console.log("trainCallback: Error "+ err);
-    return {err:true,errMsg:err};
+    return null;
   }
   console.log(stdout)
   console.log(stderr)
@@ -106,7 +106,7 @@ app.post("/register", function (req, res) {
   var trainingFile = mixMeSomeTrainingData(`${uid}.txt`,"userData/smashLib")
   storeFile(`${uid}`,"userData/trainData",trainingFile);
   var result = runNN(`python3 packages/ml/classifier.smash.py train-fresh`,`userData/${uid}W.json`,`userData/trainData/${uid}.txt`,"0.3","1000"," 10",trainCallback);
-  res.send("hello "+ result);
+  if(result!=null) res.send("hello "+ result);
   console.log("-------------end reeached-------------")
 });
 
