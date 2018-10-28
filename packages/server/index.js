@@ -161,9 +161,12 @@ app.post("/login", function (req, res) {
       submatch = matches[1];
       submatch = (submatch.split(" ")).slice(0,2);
     }
-
+    else{
+      res.send("faill no submatches\n");
+    }
+    var data = {uid:uid,conf:submatch}
     console.log(submatch);
-    res.send("sucessssssssss \n"+submatch);
+    res.send(data);
   });
   ///
 });
