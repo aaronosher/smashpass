@@ -98,7 +98,7 @@ app.post("/register", function (req, res) {
   console.log(body);
   var smashLog = req.body.smashes;
   var uid = body.uid;
-  console.log(uid+ " smashes\n "+smashes)
+  console.log(uid+ " smashes\n "+smashLog)
   res.send("hello "+ body);
 });
 
