@@ -27,9 +27,10 @@ export const submit = signUp => {
   payload: signUp,
 })};
 
-export const submitSuccess = () => dispatch => {
+export const submitSuccess = user => dispatch => {
   dispatch({
-  type: SUBMIT_SUCCESS,
+    type: SUBMIT_SUCCESS,
+    payload: user,
   })
   // dispatch(getUser());
 };

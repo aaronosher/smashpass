@@ -56,7 +56,7 @@ class Checkout extends React.Component {
       case 0:
         return (details.valid && details.dirty)
       case 1:
-        return (smashes.length >= 50);
+        return (smashes.length >= 1);
       case 2:
         return (location.valid && location.dirty)
       default:
@@ -75,7 +75,6 @@ class Checkout extends React.Component {
         location: location.values.location,
         smashes,
       });
-      setTimeout(() => this.context.router.history.push('/login'), 30000);
     }
     this.setState(state => ({
       activeStep: state.activeStep + 1,
@@ -95,7 +94,7 @@ class Checkout extends React.Component {
   };
 
   render() {
-    const { classes, navigate } = this.props;
+    const { classes, navigate, newUser } = this.props;
     const { activeStep } = this.state;
 
     return (
@@ -128,12 +127,19 @@ class Checkout extends React.Component {
                   <Typography variant="h5" gutterBottom>
                     Thank you for signing up.
                   </Typography>
+                  {!newUser.provisioned && (
                   <React.Fragment>
                     <CircularProgress className={classes.progress} />
                     <Typography variant="subtitle1">
                       We're currently provisioning your account. This may take some time. We'll let you know once your account is set up.
                     </Typography>
                   </React.Fragment>
+                  )}
+                  {newUser.provisioned && (
+                    <Typography variant="subtitle1">
+                      Congratulations, your account is set up. You can now login!
+                    </Typography>
+                  )}
                 </React.Fragment>
               ) : (
                 <React.Fragment>
@@ -166,10 +172,6 @@ class Checkout extends React.Component {
 
 Checkout.propTypes = {
   classes: PropTypes.object.isRequired,
-};
-
-Checkout.contextTypes = {
-  router: PropTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
